@@ -39,7 +39,7 @@ CareerBoost provides a centralized platform to manage the placement process effi
 
 ## Getting Started
 
-1. Clone the repository: `git clone https://github.com/yourusername/CareerBoost.git`
+1. Clone the repository: `git clone https://github.com/Riteshk07/CareerBoost.git`
 2. Install dependencies: `cd CareerBoost && npm install`
 3. Configure environment variables in `.env` file.
 4. Start the server: `npm start`
