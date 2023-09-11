@@ -1,0 +1,8 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/CBFrontend/careerboost/node_modules
+/CBBackend/Users/node_modules
+/.pnp
+.pnp.js
+/CBBackend/Users/.env
