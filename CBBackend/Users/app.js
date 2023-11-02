@@ -13,6 +13,7 @@ import savedJobsRoutes from "./routes/SavedJobsRoute.js";
 const app = express();
 const port = process.env.PORT;
 const DATABASE_URL = process.env.DATABASE_URL;
+const router = express.Router();
 
 // CORS policy
 app.use(cors());
@@ -21,8 +22,7 @@ app.use(cors());
 connectDb(DATABASE_URL);
 
 // JSON
- app.use(express.json());
-
+app.use(express.json());
  
 
 // Load Routes 
@@ -31,6 +31,8 @@ app.use("/api/app", skillsRoutes);
 app.use("/api/jobs", jobsRoutes);
 app.use("/api/companies", companiesRoutes);
 app.use('/api/savedjobs', savedJobsRoutes);
+
+
 
 app.listen(port, ()=>{
     console.log(`Server is Listening at http://localhost:${port}`);

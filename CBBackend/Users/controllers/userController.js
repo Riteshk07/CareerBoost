@@ -3,6 +3,9 @@ import bcrypt from "bcrypt";
 import Validation from "./Validation.js";
 import Jwt  from "jsonwebtoken";
 import transporter from "../config/emailConfig.js";
+import { exec } from "child_process";
+import { writeFile, unlink } from "fs/promises"; // Use fs.promises for asynchronous file operations
+
 
 class UserController{
     static userRegistration = async (req, res)=>{
@@ -176,6 +179,40 @@ class UserController{
         } catch (error) {
             res.send({"status": "failed", "message":"Invalid Token"});
             console.log(error)
+        }
+    }
+
+    static codeRun = async (req, res) => {
+        const { code } = req.body;
+    
+        // Generate a random filename for the temporary code file
+        const fileName = `tempCode_${Math.random().toString(36).substring(7)}.js`;
+    
+        // Write the code to the temporary file
+        try {
+            await writeFile(fileName, code);
+            console.log("File Created");
+    
+            // Execute the code
+            console.log("Executing");
+            exec(`node ${fileName}`, (error, stdout, stderr) => {
+                console.log("Deleting");
+                unlink(fileName)// Delete the temporary code file
+    
+            if (error) {
+              res.status(500).json({ output: `Error: ${error.message}` });
+              return;
+            }
+    
+            if (stderr) {
+              res.status(200).json({ output: stderr });
+              return;
+            }
+    
+            res.status(200).json({ output: stdout });
+          });
+        } catch (writeError) {
+          res.status(500).json({ output: `Error writing code to file: ${writeError.message}` });
         }
     }
 

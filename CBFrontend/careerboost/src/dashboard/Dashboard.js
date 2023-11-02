@@ -27,7 +27,7 @@ const Dashboard = ({ loggedIn, setLoggedIn, userDetails, usrId }) => {
         }
     }, [currPath, navigate]);
 
-    // Fetch user details after the user logs in
+    // Fetch user details after the user logs in 
 
     
     
@@ -117,7 +117,10 @@ const Dashboard = ({ loggedIn, setLoggedIn, userDetails, usrId }) => {
                                 <span class="visually-hidden">Toggle Dropdown</span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><Link class="dropdown-item" to="#">Profile</Link></li>
+                                <li><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#profileModal">
+                                    Profile
+                                    </button>
+                                </li>
                                 <li><Link class="dropdown-item" to="#">Account</Link></li>
                                 <li><Link class="dropdown-item" to="#">Setting</Link></li>
                             </ul>
@@ -129,6 +132,25 @@ const Dashboard = ({ loggedIn, setLoggedIn, userDetails, usrId }) => {
                         {contentComponent}
                     </div>
                     </section>
+                    <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="profileModalLabel">Profile</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <label htmlFor="name">Name :</label>
+                                    <input type="text" disabled  value={userDetails ? `${userDetails.name}` : 'Action'}/>
+                                    
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             ): (
                 // Render a placeholder until the user logs in
